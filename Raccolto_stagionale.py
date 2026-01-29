@@ -199,7 +199,7 @@ def ricavo_guadagno(stagionali,ettaro,prima_scelta_idro,seconda_scelta_idro,scar
                 print('\nInserire solo valori numerici interi')
 
     while True:
-        richiesta = input('\nSi vuole conoscere l\'ipotetico guadagno stagionale? (Digitare si o no) ').lower().strip()
+        richiesta = input('\nSi vuole conoscere l\'ipotetico ricavo e guadagno stagionale? (Digitare si o no) ').lower().strip()
         if richiesta == 'si' or richiesta == 's':
             costo_lavoratori_stagionali = stagionali * 1600 #costo mano d'opera extra per raggiungere gli obiettivi prefissati di raccolta 
             costi_fissi_terra = (25700 * ettaro) #costi fissi per la produzione stagionale dei pomodori con coltivazione terraria per ogni ettaro di terreno coltivato.
