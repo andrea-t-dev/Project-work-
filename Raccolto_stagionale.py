@@ -203,7 +203,7 @@ def ricavo_guadagno(stagionali,ettaro,prima_scelta_idro,seconda_scelta_idro,scar
         richiesta = input('\nSi vuole conoscere l\'ipotetico guadagno stagionale? (Digitare si o no) ').lower().strip()
         if richiesta == 'si' or richiesta == 's':
             costo_lavoratori_stagionali = stagionali * 1600 #costo mano d'opera extra per raggiungere gli obiettivi prefissati di raccolta 
-            costi_fissi_terra = (4670 * ettaro) #costi fissi per la produzione stagionale dei pomodori con coltivazione terraria per ogni ettaro di terreno coltivato.
+            costi_fissi_terra = (25700 * ettaro) #costi fissi per la produzione stagionale dei pomodori con coltivazione terraria per ogni ettaro di terreno coltivato.
             costi_fissi_idro = (83600 * ettaro) + costo_lavoratori_stagionali #costi fissi per la produzione stagionale dei pomodori in coltivazione idroponica per ogni ettaro di coltivazione idroponica.
         
             a = validazione_input('\nInserire il prezzo di vendita dei pomodori di prima scelta in coltivazione idroponica che varia dai 1100€ ai 1200€ a tonnellata: ',1100,1200)
