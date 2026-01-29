@@ -292,5 +292,3 @@ def main():
     ricavo_guadagno(stagionali,ettaro, prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #calcolo dei ricavi e guadagni
 
 main() # avvio del programma
-
-#test connessione a git
