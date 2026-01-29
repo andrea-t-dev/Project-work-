@@ -1,4 +1,3 @@
-
 """
 PROPRIETÀ INTELLETTUALE DI: Evoluzione S.r.l.
 TUTTI I DIRITTI RISERVATI © 2026
@@ -248,7 +247,6 @@ def grafico(prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra
 
             categorie = ['Prima scelta','Seconda scelta', 'Scarto']
             x = np.arange(len(categorie))
-            print (x)
             width = 0.20
 
             plt.figure(figsize=(8,6),facecolor='#f2f2f2') #setting della dimensione del grafico con sfondo grigio chiaro
@@ -294,3 +292,5 @@ def main():
     ricavo_guadagno(stagionali,ettaro, prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #calcolo dei ricavi e guadagni
 
 main() # avvio del programma
+
+#test connessione a github
