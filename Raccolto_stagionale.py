@@ -27,10 +27,8 @@ import importlib
 import subprocess
 import sys
 import random
-from tabulate import tabulate
 from math import ceil
-import matplotlib.pyplot as plt
-import numpy as np
+
 
     
 banner= r"""
@@ -67,6 +65,12 @@ def controllo_librerie(librerie): #funzione utilizzata per controllare se le lib
             except subprocess.CalledProcessError:
                 print(f'ATTENZIONE!! Impossibile installare {libreria}. Verifica il nome della libreria che desideri installare')
                 sys.exit(1)
+
+controllo_librerie(librerie)
+
+from tabulate import tabulate
+import matplotlib.pyplot as plt
+import numpy as np
 
 def richiesta_ettaro(): #funzione che permette di impostare quanti ettari di terreno vengano coltivati durante la produzione stagionale. 
 
@@ -268,7 +272,6 @@ def grafico(prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra
             continue
 
 def main():
-    controllo_librerie(librerie) #prima funzione che viene eseguita dal programma una volta avviato il main 
 
     ettaro = richiesta_ettaro() 
 
