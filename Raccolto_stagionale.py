@@ -210,16 +210,19 @@ def raccolta_ottimizzata(t_totali_idro, p_idro, s_idro, scarto_idro):
     p_eff = round(min(p_idro, capacita_totale), 2)
     capacita_residua = max(0, capacita_totale - p_eff)
     
-    # 2. Raccolta Seconda Scelta (con la capacità che avanza)
+    #Raccolta Seconda Scelta (con la capacità che avanza)
     s_eff = round(min(s_idro, capacita_residua), 2)
-    capacita_residua = max(0, capacita_residua - s_eff)
+    #capacita_residua = max(0, capacita_residua - s_eff)
     
-    # 3. Raccolta Scarto (con la capacità che avanza)
-    scarto_eff = round(min(scarto_idro, capacita_residua), 2)
+    # tutto ciò che rimane fuori dalla raccolta entrerà a far parte del materiale di scarto
+    scarto_eff = round(t_totali_idro - p_eff - s_eff, 2)
     
-    perso = round(t_totali_idro - (p_eff + s_eff + scarto_eff), 2)
-    if perso > 0:
-        print(f"\nAVVISO: Per mancanza di personale sono state perse {perso} t di prodotto (priorità data alla Prima Scelta).")
+    declassato = round(scarto_eff - scarto_idro, 2)
+    
+    if declassato > 0:
+        print(f"\nAVVISO: {declassato} t di prodotto sono state declassate a SCARTO per mancanza di personale.")
+    
+    print(f"\nRiepilogo: Prima Scelta: {p_eff}t, Seconda Scelta: {s_eff}t, Scarto Totale: {scarto_eff}t")
     
     return p_eff, s_eff, scarto_eff
 
@@ -327,11 +330,11 @@ def main():
 
     tabella(t_totali_idro,t_totali_terra,prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #funzione che restituisce una tabella comparativa
 
+    grafico(prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #richiesta creazione grafico e salvataggio dello stesso sulla macchina locale
+    
     coltivazione_maturazione() #calcolo della maturazione dei pomodori dal momenti in cui viene trapiantata la pianta nella serra e nella terra.
 
     stagionali,p_idro_eff, s_idro_eff, scarto_idro_eff = raccolta(t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro,scarto_idro) #previsione dei giorni necessari a raccogliere e smistare l'intera produzione sia per la coltivazione idroponica che quella terraria
-
-    grafico(prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #richiesta creazione grafico e salvataggio dello stesso sulla macchina locale
 
     ricavo_guadagno(stagionali,ettaro, p_idro_eff, s_idro_eff, scarto_idro_eff,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #calcolo dei ricavi e guadagni
 
