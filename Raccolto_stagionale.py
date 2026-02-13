@@ -162,7 +162,7 @@ def coltivazione_maturazione(): #calcolo maturazione dell'ortaggio pronto per es
     print('\nGIORNI PREVISTI PER LA MATURAZIONE')
     print(tabulate(dati, headers=intestazioni, colalign=('center','center','center'), tablefmt='grid'))
 
-def raccolta (t_totali_terra,t_totali_idro):
+def raccolta (t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro,scarto_idro):
 
     operai = 30 #operai dedicati alla raccolta    
     ore_lavorate = 8 #8 ore di lavoro giornaliere
@@ -174,16 +174,54 @@ def raccolta (t_totali_terra,t_totali_idro):
   
     print('\nIl tempo di raccolta e selezione per i pomodori prodotti in serra idroponica è di giorni: ' + str(giorni_lavorati_idro))
 
+    stagionali = 0
+    p_idro_eff, s_idro_eff, scarto_idro_eff = prima_scelta_idro,seconda_scelta_idro,scarto_idro
+
     if giorni_lavorati_idro > 5: #controllo per verificare che la raccolta avvenga in 5 giorni massimo, se i giorni sono più di 5 si effettua il calcolo di quanti operai ci sia bisogno di assumere per rimanere nei termini previsti di raccolto
         forza_lavoro_necessaria = t_totali_idro / 5
         assunzione = int(forza_lavoro_necessaria / forza_lavoro_operaio)
         stagionali = assunzione - operai
         print(f'\nATTENZIONE!! Si richiede maggiore manovalanza per accelerare la fase di raccolto ed effettuarla in massimo 5 giorni. Valutare assunzione stagionale di ulteriori {stagionali} operai')
-    else:
-        stagionali = 0
+
+        while True:
+            scelta = input("\nVuoi procedere con l'assunzione dei lavoratori stagionali? (si/no): ").lower().strip()
+            if scelta in ['si', 's']:
+                print("\nAssunzione confermata. Tutto il raccolto verrà processato.")
+                break
+            elif scelta in ['no', 'n']:
+                # Se l'utente rifiuta, applichiamo la raccolta ottimizzata
+                stagionali = 0 
+                p_idro_eff, s_idro_eff, scarto_idro_eff = raccolta_ottimizzata(t_totali_idro, prima_scelta_idro,seconda_scelta_idro,scarto_idro)
+                break
+            else:
+                print("\nInserire 'si' o 'no'.")
 
     print('\nIl tempo di raccolta e selezione per i pomodori prodotti da coltivazione terraria è di giorni: ' + str(giorni_lavorati_terra))
-    return stagionali
+    return stagionali,p_idro_eff, s_idro_eff, scarto_idro_eff
+
+def raccolta_ottimizzata(t_totali_idro, p_idro, s_idro, scarto_idro):
+    # Capacità totale dei 30 operai in 5 giorni (30 * 8 * 0.3 * 5)
+    capacita_totale = 30 * 8 * 0.3 * 5
+    
+    print(f"\n--- LOGICA DI EMERGENZA: OTTIMIZZAZIONE SULLA PRIMA SCELTA ---")
+    print(f"\nCapacità massima di raccolta in 5 giorni: {capacita_totale} t")
+    
+    # 1. Raccolta Prima Scelta
+    p_eff = round(min(p_idro, capacita_totale), 2)
+    capacita_residua = max(0, capacita_totale - p_eff)
+    
+    # 2. Raccolta Seconda Scelta (con la capacità che avanza)
+    s_eff = round(min(s_idro, capacita_residua), 2)
+    capacita_residua = max(0, capacita_residua - s_eff)
+    
+    # 3. Raccolta Scarto (con la capacità che avanza)
+    scarto_eff = round(min(scarto_idro, capacita_residua), 2)
+    
+    perso = round(t_totali_idro - (p_eff + s_eff + scarto_eff), 2)
+    if perso > 0:
+        print(f"\nAVVISO: Per mancanza di personale sono state perse {perso} t di prodotto (priorità data alla Prima Scelta).")
+    
+    return p_eff, s_eff, scarto_eff
 
 def ricavo_guadagno(stagionali,ettaro,prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra): #funzione che calcola il ricavo e guadagno ipotizzando la vendita complessiva di tutti i pomodori coltivati
 
@@ -285,7 +323,7 @@ def main():
 
     coltivazione_maturazione() #calcolo della maturazione dei pomodori dal momenti in cui viene trapiantata la pianta nella serra e nella terra.
 
-    stagionali = raccolta(t_totali_terra,t_totali_idro) #previsione dei giorni necessari a raccogliere e smistare l'intera produzione sia per la coltivazione idroponica che quella terraria
+    stagionali = raccolta(t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro,scarto_idro) #previsione dei giorni necessari a raccogliere e smistare l'intera produzione sia per la coltivazione idroponica che quella terraria
 
     grafico(prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #richiesta creazione grafico e salvataggio dello stesso sulla macchina locale
 
