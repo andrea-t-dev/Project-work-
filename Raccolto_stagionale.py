@@ -200,13 +200,13 @@ def raccolta (t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro
     return stagionali,p_idro_eff, s_idro_eff, scarto_idro_eff
 
 def raccolta_ottimizzata(t_totali_idro, p_idro, s_idro, scarto_idro):
-    # Capacità totale dei 30 operai in 5 giorni (30 * 8 * 0.3 * 5)
+    # Capacità totale di raccolta dei 30 operai in 5 giorni 
     capacita_totale = 30 * 8 * 0.3 * 5
     
     print(f"\n--- LOGICA DI EMERGENZA: OTTIMIZZAZIONE SULLA PRIMA SCELTA ---")
     print(f"\nCapacità massima di raccolta in 5 giorni: {capacita_totale} t")
     
-    # 1. Raccolta Prima Scelta
+    #Raccolta Prima Scelta
     p_eff = round(min(p_idro, capacita_totale), 2)
     capacita_residua = max(0, capacita_totale - p_eff)
     
