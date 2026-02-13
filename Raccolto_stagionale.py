@@ -244,8 +244,14 @@ def ricavo_guadagno(stagionali,ettaro,prima_scelta_idro,seconda_scelta_idro,scar
             costi_fissi_idro = (83600 * ettaro) + costo_lavoratori_stagionali #costi fissi per la produzione stagionale dei pomodori in coltivazione idroponica per ogni ettaro di coltivazione idroponica.
         
             a = validazione_input('\nInserire il prezzo di vendita dei pomodori di prima scelta in coltivazione idroponica che varia dai 1100€ ai 1200€ a tonnellata: ',1100,1200)
-            b = validazione_input('\nInserire il prezzo di vendita dei pomodori di seconda scelta in coltivazione idroponica che varia dai 920€ ai 1000€ a tonnellata: ',920,1000)
-            c = validazione_input('\nInserire il prezzo di vendita del materiale di scarto proveniente dalla coltivazionbe idroponica che varia dai 450€ ai 600€ a tonnellata: ',450,600)
+            if seconda_scelta_idro > 0:
+                b = validazione_input('\nInserire il prezzo di vendita dei pomodori di seconda scelta in coltivazione idroponica che varia dai 920€ ai 1000€ a tonnellata: ',920,1000)
+            else:
+                b = 0
+            if scarto_idro > 0:
+                c = validazione_input('\nInserire il prezzo di vendita del materiale di scarto proveniente dalla coltivazionbe idroponica che varia dai 450€ ai 600€ a tonnellata: ',450,600)
+            else:
+                c = 0
             d = validazione_input('\nInserire il prezzo di vendita dei pomodori di prima scelta in coltivazione terraria che varia dai 800€ ai 1000€ a tonnellata: ',800,1000)
             e = validazione_input('\nInserire il prezzo di vendita di pomodori dei seconda scelta in coltivazione terraria che varia dai 650€ ai 700€ a tonnellata: ',650,700)
             f = validazione_input('\nInserire il prezzo di vendita del materiale di scarto proveniente dalla coltivazione terraria che varia dai 280€ ai 400€ a tonnellata: ',280,400)
@@ -323,10 +329,10 @@ def main():
 
     coltivazione_maturazione() #calcolo della maturazione dei pomodori dal momenti in cui viene trapiantata la pianta nella serra e nella terra.
 
-    stagionali = raccolta(t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro,scarto_idro) #previsione dei giorni necessari a raccogliere e smistare l'intera produzione sia per la coltivazione idroponica che quella terraria
+    stagionali,p_idro_eff, s_idro_eff, scarto_idro_eff = raccolta(t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro,scarto_idro) #previsione dei giorni necessari a raccogliere e smistare l'intera produzione sia per la coltivazione idroponica che quella terraria
 
     grafico(prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #richiesta creazione grafico e salvataggio dello stesso sulla macchina locale
 
-    ricavo_guadagno(stagionali,ettaro, prima_scelta_idro,seconda_scelta_idro,scarto_idro,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #calcolo dei ricavi e guadagni
+    ricavo_guadagno(stagionali,ettaro, p_idro_eff, s_idro_eff, scarto_idro_eff,prima_scelta_terra,seconda_scelta_terra,scarto_terra) #calcolo dei ricavi e guadagni
 
 main() # avvio del programma
