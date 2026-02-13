@@ -212,8 +212,7 @@ def raccolta_ottimizzata(t_totali_idro, p_idro, s_idro, scarto_idro):
     
     #Raccolta Seconda Scelta (con la capacità che avanza)
     s_eff = round(min(s_idro, capacita_residua), 2)
-    #capacita_residua = max(0, capacita_residua - s_eff)
-    
+       
     # tutto ciò che rimane fuori dalla raccolta entrerà a far parte del materiale di scarto
     scarto_eff = round(t_totali_idro - p_eff - s_eff, 2)
     
