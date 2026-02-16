@@ -6,5 +6,6 @@ IMPORTANTE: una volta scaricato il programma si raccomanda di avviarlo tramite P
 ESEMPIO di avvio da Powershell o CMD: 
 
 <pre>
+```bash
 python.exe Raccolto_stagionale.py
 </pre>
