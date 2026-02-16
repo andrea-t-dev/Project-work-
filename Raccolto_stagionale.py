@@ -171,9 +171,13 @@ def raccolta (t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro
     forza_lavoro_totale = forza_lavoro_operaio * operai #calcolo della forza lavoro complessiva per la raccolta
     giorni_lavorati_idro = ceil(t_totali_idro / forza_lavoro_totale)
     giorni_lavorati_terra = ceil(t_totali_terra / forza_lavoro_totale)
-  
-    print('\nIl tempo di raccolta e selezione per i pomodori prodotti in serra idroponica è di giorni: ' + str(giorni_lavorati_idro))
 
+    #print('\nIl tempo di raccolta e selezione per i pomodori prodotti da coltivazione terraria è di giorni: ' + str(giorni_lavorati_terra))  
+    #print('\nIl tempo di raccolta e selezione per i pomodori prodotti in serra idroponica è di giorni: ' + str(giorni_lavorati_idro))
+    giorni = [['Giorni', str(giorni_lavorati_idro),str(giorni_lavorati_terra)]]
+    intestazioni = ['Coltivazione Idroponica', 'Coltivazione Terraria']
+    print('\nGIORNI DI RACCOLTA E SELEZIONE')
+    print(tabulate(giorni, headers=intestazioni, colalign=('center','center','center'), tablefmt='grid'))
     stagionali = 0
     p_idro_eff, s_idro_eff, scarto_idro_eff = prima_scelta_idro,seconda_scelta_idro,scarto_idro
 
@@ -181,7 +185,7 @@ def raccolta (t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro
         forza_lavoro_necessaria = t_totali_idro / 5
         assunzione = int(forza_lavoro_necessaria / forza_lavoro_operaio)
         stagionali = assunzione - operai
-        print(f'\nATTENZIONE!! Si richiede maggiore manovalanza per accelerare la fase di raccolto ed effettuarla in massimo 5 giorni. Valutare assunzione stagionale di ulteriori {stagionali} operai')
+        print(f'\nATTENZIONE!! Si richiede maggiore manovalanza per accelerare la fase di raccolto dei pomodori in serra idroponica ed effettuarla in massimo 5 giorni. Valutare assunzione stagionale di ulteriori {stagionali} operai')
 
         while True:
             scelta = input("\nVuoi procedere con l'assunzione dei lavoratori stagionali? (si/no): ").lower().strip()
@@ -196,14 +200,13 @@ def raccolta (t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro
             else:
                 print("\nInserire 'si' o 'no'.")
 
-    print('\nIl tempo di raccolta e selezione per i pomodori prodotti da coltivazione terraria è di giorni: ' + str(giorni_lavorati_terra))
     return stagionali,p_idro_eff, s_idro_eff, scarto_idro_eff
 
 def raccolta_ottimizzata(t_totali_idro, p_idro, s_idro, scarto_idro):
     # Capacità totale di raccolta dei 30 operai in 5 giorni 
     capacita_totale = 30 * 8 * 0.3 * 5
     
-    print(f"\n--- LOGICA DI EMERGENZA: OTTIMIZZAZIONE SULLA PRIMA SCELTA ---")
+    print(f"\n--- LOGICA DI EMERGENZA: OTTIMIZZAZIONE SULLA PRIMA SCELTA DEI POMODORI IN COLTIVAZIONE IDROPONICA ---")
     print(f"\nCapacità massima di raccolta in 5 giorni: {capacita_totale} t")
     
     #Raccolta Prima Scelta
@@ -220,8 +223,7 @@ def raccolta_ottimizzata(t_totali_idro, p_idro, s_idro, scarto_idro):
     
     if declassato > 0:
         print(f"\nAVVISO: {declassato} t di prodotto sono state declassate a SCARTO per mancanza di personale.")
-    
-    print(f"\nRiepilogo: Prima Scelta: {p_eff}t, Seconda Scelta: {s_eff}t, Scarto Totale: {scarto_eff}t")
+    print(f"\nRiepilogo degli output della coltivazione idroponica attivando la logica di emergenza: Prima Scelta: {p_eff}t, Seconda Scelta: {s_eff}t, Scarto Totale: {scarto_eff}t")
     
     return p_eff, s_eff, scarto_eff
 
