@@ -186,7 +186,7 @@ def raccolta (t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro
         print(f'\nATTENZIONE!! Si richiede maggiore manovalanza per accelerare la fase di raccolto dei pomodori in serra idroponica ed effettuarla in massimo 5 giorni. Valutare assunzione stagionale di ulteriori {stagionali} operai')
 
         while True:
-            scelta = input("\nVuoi procedere con l'assunzione dei lavoratori stagionali? (si/no): ").lower().strip()
+            scelta = input("\nVuoi procedere con l'assunzione dei lavoratori stagionali? (Digitare si o no): ").lower().strip()
             if scelta in ['si', 's']:
                 print("\nAssunzione confermata. Tutto il raccolto verrà processato.")
                 break
