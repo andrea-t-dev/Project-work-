@@ -172,8 +172,6 @@ def raccolta (t_totali_terra,t_totali_idro,prima_scelta_idro,seconda_scelta_idro
     giorni_lavorati_idro = ceil(t_totali_idro / forza_lavoro_totale)
     giorni_lavorati_terra = ceil(t_totali_terra / forza_lavoro_totale)
 
-    #print('\nIl tempo di raccolta e selezione per i pomodori prodotti da coltivazione terraria è di giorni: ' + str(giorni_lavorati_terra))  
-    #print('\nIl tempo di raccolta e selezione per i pomodori prodotti in serra idroponica è di giorni: ' + str(giorni_lavorati_idro))
     giorni = [['Giorni', str(giorni_lavorati_idro),str(giorni_lavorati_terra)]]
     intestazioni = ['Coltivazione Idroponica', 'Coltivazione Terraria']
     print('\nGIORNI DI RACCOLTA E SELEZIONE')
